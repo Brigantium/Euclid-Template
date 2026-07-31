@@ -1,0 +1,327 @@
+\input{Plantilla_Euclides}
+% ======================================================================
+% CONFIGURACIÓN DEL GLOSARIO (35 PALABRAS MATEMÁTICAS)
+% ======================================================================
+\makeglossaries
+
+\newglossaryentry{abscisa}{name={Abscisa}, description={Coordenada horizontal en un plano cartesiano}}
+\newglossaryentry{algebra}{name={Álgebra}, description={Rama de la matemática que estudia la combinación de elementos de estructuras abstractas}}
+\newglossaryentry{algoritmo}{name={Algoritmo}, description={Conjunto ordenado de operaciones sistemáticas que permite hacer un cálculo}}
+\newglossaryentry{anillo}{name={Anillo}, description={Estructura algebraica con dos operaciones binarias}}
+\newglossaryentry{asintota}{name={Asíntota}, description={Línea recta a la que se aproxima continuamente la gráfica de una función}}
+\newglossaryentry{axioma}{name={Axioma}, description={Proposición tan clara y evidente que se admite sin demostración}}
+\newglossaryentry{base}{name={Base}, description={Conjunto de vectores linealmente independientes que forman un espacio vectorial}}
+\newglossaryentry{biyeccion}{name={Biyección}, description={Función que es a la vez inyectiva y sobreyectiva}}
+\newglossaryentry{calculo}{name={Cálculo}, description={Rama de las matemáticas que estudia el cambio continuo}}
+\newglossaryentry{cardinalidad}{name={Cardinalidad}, description={Medida del número de elementos en un conjunto}}
+\newglossaryentry{conica}{name={Cónica}, description={Curva resultante de la intersección de un cono y un plano}}
+\newglossaryentry{continuidad}{name={Continuidad}, description={Propiedad de una función de no presentar saltos o interrupciones}}
+\newglossaryentry{convergencia}{name={Convergencia}, description={Propiedad de una sucesión de aproximarse a un límite}}
+\newglossaryentry{coseno}{name={Coseno}, description={Razón trigonométrica entre el cateto adyacente y la hipotenusa}}
+\newglossaryentry{derivada}{name={Derivada}, description={Razón de cambio instantánea con la que varía el valor de una función matemática}}
+\newglossaryentry{determinante}{name={Determinante}, description={Valor escalar que se puede calcular a partir de los elementos de una matriz cuadrada}}
+\newglossaryentry{dominio}{name={Dominio}, description={Conjunto de existencia de una función}}
+\newglossaryentry{ecuacion}{name={Ecuación}, description={Igualdad matemática entre dos expresiones}}
+\newglossaryentry{entero}{name={Entero}, description={Número que pertenece al conjunto de los números naturales, sus opuestos y el cero}}
+\newglossaryentry{espacio}{name={Espacio}, description={Conjunto dotado de alguna estructura matemática}}
+\newglossaryentry{funcion}{name={Función}, description={Relación entre un conjunto dado X y otro conjunto de elementos Y}}
+\newglossaryentry{geometria}{name={Geometría}, description={Rama matemática que estudia las propiedades del espacio}}
+\newglossaryentry{grupo}{name={Grupo}, description={Estructura algebraica formada por un conjunto y una operación binaria}}
+\newglossaryentry{hiperbola}{name={Hipérbola}, description={Lugar geométrico de los puntos del plano cuya diferencia de distancias a dos puntos fijos es constante}}
+\newglossaryentry{integral}{name={Integral}, description={Generalización de la suma de infinitos sumandos infinitesimales}}
+\newglossaryentry{limite}{name={Límite}, description={Magnitud a la que se acercan progresivamente los términos de una secuencia infinita de magnitudes}}
+\newglossaryentry{matriz}{name={Matriz}, description={Arreglo bidimensional de números}}
+\newglossaryentry{modulo}{name={Módulo}, description={Valor absoluto o norma de un número o vector}}
+\newglossaryentry{polinomio}{name={Polinomio}, description={Expresión algebraica formada por la suma de varios monomios}}
+\newglossaryentry{probabilidad}{name={Probabilidad}, description={Medida de la certidumbre asociada a un suceso futuro}}
+\newglossaryentry{rango}{name={Rango}, description={Conjunto de todos los valores de salida de una función}}
+\newglossaryentry{seno}{name={Seno}, description={Razón trigonométrica entre el cateto opuesto y la hipotenusa}}
+\newglossaryentry{teorema}{name={Teorema}, description={Proposición matemática demostrable a partir de axiomas}}
+\newglossaryentry{topologia}{name={Topología}, description={Estudio de las propiedades de los cuerpos geométricos que permanecen inalteradas por transformaciones continuas}}
+\newglossaryentry{vector}{name={Vector}, description={Segmento de recta contado a partir de un punto del espacio, cuya longitud representa a escala una magnitud}}
+\newglossaryentry{varianza}{name={Varianza}, description={Medida de dispersión definida como la esperanza del cuadrado de la desviación}}
+
+% ======================================================================
+% VARIABLES DEL DOCUMENTO
+% ======================================================================
+
+\title{Texto Matemático Generado}
+\author{Autor Desconocido}
+\date{\today}
+\bibliographystyle{ieee}
+% ======================================================================
+% INICIO DEL DOCUMENTO
+% ======================================================================
+\begin{document}
+	
+	\frontmatter % Números romanos
+	\tableofcontents
+	% TÍTULOS SIN NUMERAR (Resumen e Introducción)
+	\chapter*{Resumen}
+	\addcontentsline{toc}{chapter}{Resumen}
+	
+	Este texto sirve como documento de demostración de la plantilla \textit{Euclides}. Aquí se aplicarán los distintos entornos matemáticos de \gls{algebra}, \gls{calculo} y \gls{geometria}. A lo largo del texto, se citarán libros fundamentales como el de Spivak \cite{spivak} y Strang \cite{strang} para demostrar el funcionamiento del sistema de referencias en la bibliografía, forzando que se repitan para que las citas aparezcan en múltiples páginas diferentes.
+	
+	\chapter*{Introducción}
+	\addcontentsline{toc}{chapter}{Introducción}
+	
+	El propósito de este documento es validar los estilos desarrollados en \LaTeX. Se implementan referencias a conceptos como \gls{matriz} o \gls{algoritmo}. La \gls{probabilidad} y la \gls{topologia} serán abordadas brevemente. Además, citaremos a Munkres \cite{munkres} y a Ross \cite{ross}. Un aspecto clave es el uso constante de notas a pie de página\footnote{Esta es una nota a pie de página coloreada automáticamente por la plantilla.}.
+	
+%	\tableofcontents % Índice
+	
+	\mainmatter % Inicia numeración arábiga normal
+	
+	% ======================================================================
+	% CAPÍTULO 1
+	% ======================================================================
+	\chapter{Fundamentos de Álgebra Lineal}
+	
+	\section{Espacios Vectoriales}
+	Comenzamos el estudio con el concepto de \gls{vector} y la idea de un \gls{espacio} vectorial \cite{anton}. 
+	
+	\begin{definition}[Espacio Vectorial]
+		Un espacio vectorial sobre un cuerpo $K$ es un conjunto no vacío $V$ dotado de dos operaciones (suma y producto por un escalar) que cumplen ocho \glspl{axioma} fundamentales.
+	\end{definition}
+	
+	\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}
+			\draw[thick, ->] (0,0) -- (3,2) node[anchor=south west] {$\vec{v}$};
+			\draw[thick, ->] (0,0) -- (4,0) node[anchor=north] {$\vec{u}$};
+		\end{tikzpicture}
+		\caption{Ejemplo de un \gls{vector} en el plano euclidiano.}
+	\end{figure}
+	
+	Citamos aquí nuevamente a \cite{strang} para mantener la consistencia bibliográfica. 
+	
+	\subsection{Independencia Lineal}
+	Una \gls{base} se define a través de vectores independientes. 
+	
+	\begin{theorem}[Base Invariante]
+		Todas las bases de un espacio vectorial finitamente generado tienen la misma \gls{cardinalidad} \cite{herstein}.
+	\end{theorem}
+	
+	\begin{proof}
+		Sea $B_1$ y $B_2$ dos bases del espacio $V$. Por el lema de intercambio de Steinitz, podemos sustituir elementos de $B_1$ en $B_2$ sin perder la propiedad de generar a $V$, lo que implica que $|B_1| \leq |B_2|$ y viceversa. Por tanto, $|B_1| = |B_2|$.
+	\end{proof}
+	
+	\section{Matrices y Determinantes}
+	Una \gls{matriz} permite representar transformaciones. El \gls{determinante} es clave.
+	
+	\begin{figure}[h]
+		\centering
+		\rule{6cm}{3cm} % Placeholder
+		\caption{Representación matricial genérica.}
+	\end{figure}
+	
+	\begin{table}[h]
+		\centering
+		\begin{tabularx}{0.6\textwidth}{ |c|X|c| }
+			\hline
+			\textbf{Dimensión} & \textbf{Tipo de Matriz} & \textbf{Determinante} \\
+			\hline
+			$2 \times 2$ & Cuadrada & $ad - bc$ \\
+			$m \times n$ & Rectangular & No definido \\
+			\hline
+		\end{tabularx}
+		\caption{Clasificación rápida de matrices.}
+	\end{table}
+	
+	\section{Sistemas de Ecuaciones}
+	Resolver una \gls{ecuacion} múltiple requiere transformar la matriz al \gls{rango} máximo. Aquí referenciamos nuevamente a Spivak \cite{spivak} a modo de prueba cruzada y a Apostol \cite{apostol}.
+	
+	\begin{figure}[h]
+		\centering
+		\rule{4cm}{4cm} % Placeholder
+		\caption{Intersección de planos representando un sistema compatible determinado.}
+	\end{figure}
+	
+	\begin{nota}
+		Recuerde que si el sistema es homogéneo, siempre admite al menos la solución trivial.
+	\end{nota}
+	
+	% ======================================================================
+	% CAPÍTULO 2
+	% ======================================================================
+	\chapter{Cálculo Diferencial e Integral}
+	
+	\section{Límites y Continuidad}
+	El \gls{calculo} se funda en el \gls{limite}. Una función goza de \gls{continuidad} si el límite coincide con el valor evaluado \cite{stewart}. 
+	
+	\begin{definition}[Límite]
+		Sea $f: A \to \mathbb{R}$ una \gls{funcion}. Se dice que $\lim_{x \to c} f(x) = L$ si para todo $\epsilon > 0$ existe un $\delta > 0$ tal que si $0 < |x - c| < \delta$, entonces $|f(x) - L| < \epsilon$.
+	\end{definition}
+	
+	\begin{figure}[h]
+		\centering
+		\rule{5cm}{3cm}
+		\caption{Aproximación de un límite mediante rectángulos.}
+	\end{figure}
+	
+	Referenciamos a \cite{strang} y \cite{spivak} para engrosar el conteo de citas en distintas páginas.
+	
+	\section{Derivadas}
+	La \gls{derivada} mide el cambio. Relacionada con funciones como el \gls{seno} y el \gls{coseno}.
+	
+	\begin{lemma}[Regla de la Cadena]
+		Si $g$ es derivable en $x$ y $f$ derivable en $g(x)$, entonces $f \circ g$ es derivable en $x$ \cite{rudin}.
+	\end{lemma}
+	
+	\begin{figure}[h]
+		\centering
+		\rule{5cm}{3cm}
+		\caption{Recta tangente a una curva (Derivada).}
+	\end{figure}
+	
+	\section{Integración}
+	La \gls{integral} es el operador inverso\footnote{Bajo condiciones específicas establecidas en el Teorema Fundamental del Cálculo.}.
+	
+	\begin{theorem}[Teorema Fundamental del Cálculo]
+		Sea $f$ continua en $[a,b]$. Entonces la función $F(x) = \int_a^x f(t)dt$ es derivable y $F'(x) = f(x)$. Citando a Apostol \cite{apostol}.
+	\end{theorem}
+	
+	\begin{figure}[h]
+		\centering
+		\rule{5cm}{3cm}
+		\caption{Área bajo la curva definida por una integral.}
+	\end{figure}
+	
+	\section{Aplicaciones del Cálculo}
+	El uso del \gls{calculo} en la física, donde interactúa con la \gls{conica}, la \gls{asintota} y la \gls{hiperbola}. Nuevas referencias cruzadas a \cite{anton, munkres}.
+	
+	\begin{proposition}
+		Toda función diferenciable monótona tiene una inversa local.
+	\end{proposition}
+	
+	% ======================================================================
+	% CAPÍTULO 3
+	% ======================================================================
+	\chapter{Elementos de Topología}
+	
+	\section{Espacios Topológicos}
+	La \gls{topologia} estudia conjuntos \cite{munkres}. Un \gls{espacio} topológico generaliza a los espacios métricos \cite{rudin}.
+	
+	\begin{definition}[Espacio Topológico]
+		Un espacio topológico es un par $(X, \tau)$ donde $\tau$ es una colección de subconjuntos de $X$ que contiene al conjunto vacío y a $X$, y es cerrada bajo uniones arbitrarias e intersecciones finitas.
+	\end{definition}
+	
+	\begin{figure}[h]
+		\centering
+		\rule{6cm}{2cm}
+		\caption{Ejemplo visual de esferas homoeomorfas (Topología).}
+	\end{figure}
+	
+	\section{Convergencia en Topología}
+	La \gls{convergencia} no requiere una métrica. Esto diferencia al \gls{entero} del continuo. Citas a \cite{spivak, ross}.
+	
+	\begin{nota}
+		En espacios que no son de Hausdorff, los límites de una sucesión no son necesariamente únicos.
+	\end{nota}
+	
+	\begin{figure}[h]
+		\centering
+		\rule{4cm}{4cm}
+		\caption{Vecindades de un punto.}
+	\end{figure}
+	
+	\begin{figure}[h]
+		\centering
+		\rule{7cm}{3cm}
+		\caption{Transformación continua del toro.}
+	\end{figure}
+	
+	Nuevamente agregamos \cite{strang} para asegurar su aparición múltiple en el índice de referencias.
+	
+	% ======================================================================
+	% CAPÍTULO 4
+	% ======================================================================
+	\chapter{Probabilidad y Estadística}
+	
+	\section{Axiomas de Probabilidad}
+	El estudio de la \gls{probabilidad} inicia con Kolmogórov \cite{ross}. 
+	
+	\begin{definition}[Espacio de Probabilidad]
+		Un espacio de probabilidad es una terna $(\Omega, \mathcal{F}, P)$ que satisface los tres axiomas fundamentales.
+	\end{definition}
+	
+	\begin{figure}[h]
+		\centering
+		\rule{5cm}{3cm}
+		\caption{Diagrama de Venn ilustrando la intersección de eventos.}
+	\end{figure}
+	
+	\section{Variables Aleatorias}
+	Asignan un valor del \gls{dominio} real a cada resultado posible. Cita a \cite{hogg}. Relacionado al \gls{polinomio} característico en análisis multivariable \cite{herstein, stewart}.
+	
+	\begin{figure}[h]
+		\centering
+		\rule{5cm}{3cm}
+		\caption{Función de Densidad de Probabilidad de una Normal.}
+	\end{figure}
+	
+	\section{Varianza y Esperanza}
+	La \gls{varianza} mide la dispersión. 
+	
+	\begin{theorem}[Desigualdad de Chebyshev]
+		Para cualquier variable aleatoria $X$ con media $\mu$ y varianza $\sigma^2 > 0$, la probabilidad de que $X$ se desvíe de $\mu$ en más de $k\sigma$ es a lo sumo $1/k^2$. \cite{ross, spivak, strang}.
+	\end{theorem}
+	
+	\begin{figure}[h]
+		\centering
+		\rule{5cm}{3cm}
+		\caption{Representación gráfica de la dispersión de datos.}
+	\end{figure}
+	
+	% ======================================================================
+	% ANEXOS
+	% ======================================================================
+	\appendix
+	
+	\chapter{Demostraciones Extendidas}
+	
+	En este anexo exponemos demostraciones adicionales del \gls{teorema} fundamental \cite{apostol}. El uso del \gls{anillo} en teorías abstractas y la \gls{biyeccion} entre conjuntos infinitos \cite{rudin}.
+	
+	\chapter{Código y Algoritmos}
+	
+	Implementación de un \gls{algoritmo} computacional y \gls{modulo} básico.
+	
+	\begin{codigo}
+# Ejemplo de código en R para calcular la varianza
+calcular_varianza <- function(datos) {
+	media <- mean(datos)
+	varianza <- sum((datos - media)^2) / (length(datos) - 1)
+	return(varianza)
+}
+	\end{codigo}
+	
+	% ======================================================================
+	% BIBLIOGRAFÍA E ÍNDICES
+	% ======================================================================
+%	\backmatter
+	
+	\begin{thebibliography}{15}\addcontentsline{toc}{chapter}{Bibliografía}
+		
+		\bibitem{strang} G. Strang, \textit{Linear Algebra and Its Applications}. Thomson, 4th ed., 2006.
+		
+		\bibitem{spivak} M. Spivak, \textit{Calculus}. Publish or Perish, 4th ed., 2008.
+		
+		\bibitem{rudin} W. Rudin, \textit{Principles of Mathematical Analysis}. McGraw-Hill, 3rd ed., 1976.
+		
+		\bibitem{munkres} J. Munkres, \textit{Topology}. Prentice Hall, 2nd ed., 2000.
+		
+		\bibitem{ross} S. Ross, \textit{A First Course in Probability}. Pearson, 9th ed., 2014.
+		
+		\bibitem{anton} H. Anton, \textit{Elementary Linear Algebra}. Wiley, 11th ed., 2013.
+		
+		\bibitem{apostol} T. Apostol, \textit{Calculus, Vol. 1}. Wiley, 2nd ed., 1991.
+		
+		\bibitem{hogg} R. Hogg, E. Tanis, and D. Zimmerman, \textit{Probability and Statistical Inference}. Pearson, 9th ed., 2015.
+		
+		\bibitem{stewart} J. Stewart, \textit{Calculus: Early Transcendentals}. Cengage Learning, 8th ed., 2015.
+		
+		\bibitem{herstein} I. N. Herstein, \textit{Topics in Algebra}. Wiley, 2nd ed., 1975.
+	\end{thebibliography}
+	
+	\printglossaries
+	
+\end{document}

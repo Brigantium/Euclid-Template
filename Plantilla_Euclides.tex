@@ -1,0 +1,686 @@
+% ======================================================================
+% PLANTILLA LaTeX — Euclides
+% ----------------------------------------------------------------------
+% Motor requerido: LuaLaTeX o XeLaTeX (se usa fontspec para la fuente).
+%   Compilar con:  lualatex nombre.tex   (dos veces, por las referencias
+%                  cruzadas de ecuaciones, definiciones, teoremas, etc.)
+% ======================================================================
+\documentclass[11pt,a4paper,twoside,openright]{book}    
+\usepackage{amsmath,amsfonts,amssymb,amsthm,amscd} 
+
+
+% se copian las variables más relevantes
+\makeatletter
+\let\newtitle\@title
+\let\newauthor\@author
+\let\newdate\@date
+\makeatother
+
+
+% ----------------------------------------------------------------------
+% Fuente y tamaño de letra
+% ----------------------------------------------------------------------
+\usepackage{fontspec}
+\usepackage{newcomputermodern} % Tipo de letra, New Computer Modern
+
+%
+%% Tipo de letra de las letras capitales.
+%
+
+%\newfontfamily\chapnumfont{arenq.regular}[Path = ./, Extension = .otf] % NO
+%\newfontfamily\chapnumfont{manbow.lines-regular}[Path = ./, Extension = .otf] % de momento, la que más me gusta
+%\newfontfamily\chapnumfont{evensong}[Path = ./, Extension = .otf]
+%\newfontfamily\chapnumfont{berylium.bold}[Path = ./, Extension = .otf]
+%\newfontfamily\chapnumfont{library-3-am.3am}[Path = ./, Extension = .otf] % este 
+%\newfontfamily\chapnumfont{foglihtenno04.regular}[Path = ./, Extension = .otf]
+%\newfontfamily\chapnumfont{labyrinth.regular}[Path = ./, Extension = .otf]
+%\newfontfamily\chapnumfont{baflion-sans.black}[Path = ./, Extension = .otf]
+%\newfontfamily\chapnumfont{atavian.regular}[Path = ./, Extension = .otf]
+%\newfontfamily\chapnumfont{stripescaps.regular}[Path = ./, Extension = .ttf] % non me gusta e non ten tilde
+%\newfontfamily\chapnumfont{dita-sweet.regular}[Path = ./, Extension = .otf]
+%\newfontfamily\chapnumfont{ZnikomitNo25}[Path = ./, Extension = .otf]
+\newfontfamily\chapnumfont{Archistico_Bold}[Path = ./, Extension = .ttf]
+%\newfontfamily\chapnumfont{Roke1984}[Path = ./, Extension = .otf]
+%\newfontfamily\chapnumfont{SketchiquaB}[Path = ./, Extension = .ttf]
+%\newfontfamily\chapnumfont{WelcomeToFuture1-E4Xnl}[Path = ./, Extension = .ttf]
+%\newfontfamily\chapnumfont{CrazyConstructor}[Path = ./, Extension = .ttf]
+%\newfontfamily\chapnumfont{Limelight-Regular}[Path = ./, Extension = .ttf]
+
+
+
+% interlineado
+\renewcommand{\baselinestretch}{1.25}
+\setlength{\parskip}{1mm}
+\raggedbottom\setlength{\baselineskip}{1mm}
+\allowdisplaybreaks
+
+
+
+% ----------------------------------------------------------------------
+% Idioma
+% ----------------------------------------------------------------------
+\usepackage[spanish,es-lcroman,es-noquoting]{babel} % Español
+
+
+
+% ----------------------------------------------------------------------
+% Color primario
+% ----------------------------------------------------------------------
+\usepackage{xcolor}
+\definecolor{colorprimario}{HTML}{FF4000}%{FF461A}
+
+
+
+% ----------------------------------------------------------------------
+% Geometría de la Página
+%-----------------------------------------------------------------------
+\usepackage[papersize={210mm,297mm}, left=2.5cm, right=2.5cm, top=3.5cm, bottom=3.5cm]{geometry}
+
+
+% ----------------------------------------------------------------------
+% Paquetes auxiliares
+% ----------------------------------------------------------------------
+\usepackage{array}       % para el separador "!{...}" en tablas
+\usepackage{tabularx}     % columna elástica "X" 
+\usepackage{framed}       % entorno "leftbar": regla vertical izquierda
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{tikz}
+\usepackage{calc}
+\usepackage{ulem} % para poder subrayar correctamente
+\usepackage{scrextend} % para comandos como addmargin
+\usepackage{needspace} % para evitar roturas de cajas no bonitas
+
+
+
+% ----------------------------------------------------------------------
+% Apéndices
+% ----------------------------------------------------------------------
+%% Formato: 
+%% - Los apéndices se disponen en una Parte separada, 
+%%
+%% - con una página indicando el inicio con `\appendixtitle` 
+%%   escrito con la primera letra en mayúscula y de `colorprimario`. 
+%%
+%% - El título está subrayado y centrado en el
+%%   centro de la página de estilo `empty`, en una página a la izquierda.
+%%
+%% - Siguiente página en blanco.
+%
+
+\usepackage[toc,page]{appendix}
+
+%
+%% comandos de formateo
+%
+
+\newcommand*{\appendixfontsize}{50pt} % tamaño del título de la sección de anexos
+\newcommand*{\appendixtitle}{Apéndices} % título de la sección de Anexos
+
+
+% TRABAJO INTERNO: -----------------------------------------------------
+\newlength{\appendixfontsizeInternal}
+
+%
+%% Formato del título de la zona de apéndices
+%
+\makeatletter
+% 1. El motor interno: toma la primera letra (#1), el resto (#2), y se detiene en \@nil
+\def\@appendixformat#1#2\@nil{%
+	% Primera letra (#1) con su estilo y subrayado propio
+	\uline{{\fontsize{1.8\appendixfontsizeInternal}{1.8\appendixfontsizeInternal}\chapnumfont\selectfont\bfseries\color{colorprimario}#1}%
+	% Resto del texto (#2) con su propio estilo
+	{\fontsize{\appendixfontsize}{\appendixfontsize}\selectfont\bfseries#2}}%
+}
+
+% 2. El comando público: expande tu variable antes de enviarla al motor interno
+\newcommand{\formattingappendixname}[1]{%
+	\expandafter\@appendixformat#1\@nil
+}
+
+% 
+%% Definición del apéndice como tal
+%
+\gdef\appendix{%
+	\setlength{\appendixfontsizeInternal}{\appendixfontsize}
+	\renewcommand{\ULthickness}{1.5pt}
+	\cleardoublepage
+	\thispagestyle{empty} % Quita encabezados y pies de página en esta portada
+	
+	% Página con "Apéndices" alineado a la izquierda y centrado verticalmente
+	\vspace*{\fill}
+	\begin{center}
+		\formattingappendixname{\appendixtitle} % formateo del título
+	\end{center}
+	\vspace*{\fill}
+	
+	\clearpage
+	\thispagestyle{empty}
+	\null % Inserta una página en blanco obligatoria
+	\clearpage
+	
+	% Restablece los contadores para los capítulos del apéndice
+	\setcounter{chapter}{0}%
+	\setcounter{section}{0}%
+	\gdef\@chapapp{\appendixname}%
+	\gdef\thechapter{\@Alph\c@chapter}%
+}
+\makeatletter
+
+
+
+% ----------------------------------------------------------------------
+% Índice de contenidos
+% ----------------------------------------------------------------------
+\usepackage{titletoc}
+
+%
+%% comandos de formato
+%
+
+\renewcommand\contentsname{Índice} % nombre del título
+
+\newcommand{\contentstitlesize}{50pt} % tamaño de letra del título
+
+
+
+
+% TRABAJO INTERNO ------------------------------------------------------
+\newlength{\contentstitlesizeInternal}
+
+
+\titlecontents{chapter}[0pt]
+{\addvspace{1em}\bfseries}                 % antes de la entrada
+{\textcolor{colorprimario}\thecontentslabel\quad}        % con número
+{}                                            % sin número (no se usa aquí)
+{\leavevmode                                  % <- después del título:
+	\hfill\kern0pt    %    
+	\textcolor{colorprimario}{\thecontentspage}} %    página en naranja
+
+
+\titlecontents{section}[1.5em]
+{\addvspace{0.10em}}
+{\textcolor{colorprimario}\thecontentslabel.\quad}
+{}
+{\leavevmode
+	~\leaders\hrule height 0.5pt\hfill\kern0pt ~   % línea recta de relleno
+	\textcolor{colorprimario}{\thecontentspage}}
+
+
+\titlecontents{subsection}[3em]
+{\addvspace{0.1em}\small}
+{\thecontentslabel.\quad}
+{}
+{\leavevmode
+	~\leaders\hrule height 0.5pt\hfill\kern0pt ~
+	\textcolor{colorprimario}{\thecontentspage}}
+
+
+
+
+\let\oldtableofcontents\tableofcontents % guardamos la anterior forma de table of contents.
+
+% Formateo del título
+\makeatletter
+\renewcommand{\tableofcontents}{%
+	\begingroup
+	\hypersetup{linkcolor=black}% cambiar, de forma temporal, el color de los títulos.
+	\renewcommand{\@makeschapterhead}[1]{%
+		\setlength{\contentstitlesizeInternal}{\contentstitlesize}
+		\renewcommand{\arrayrulewidth}{1.5pt}
+		\vspace*{-5mm}%
+		\noindent
+		\begin{tabularx}{\textwidth}{ l @{\vline \phantom{M}} X}
+			 & \vphantom{{\fontsize{1.8\contentstitlesizeInternal}{1.8\contentstitlesizeInternal}\selectfont M}} \textbf{{\fontsize{1.2\contentstitlesizeInternal}{1.2\contentstitlesizeInternal}\chapnumfont\selectfont\color{colorprimario}Í}\scshape\fontsize{\contentstitlesizeInternal}{\contentstitlesizeInternal}\selectfont ndice} \\
+			\llap{\raisebox{1ex}{\rule{20cm}{\arrayrulewidth}}\hspace{-\textwidth}} &\\ &
+		\end{tabularx}
+		\renewcommand{\arrayrulewidth}{1pt}
+	}%
+	\oldtableofcontents
+	\endgroup
+}
+\makeatother
+
+
+
+% ----------------------------------------------------------------------
+% Cabecera: 
+% ----------------------------------------------------------------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\renewcommand{\chaptermark}[1]{\markboth{\textbf{{\color{colorprimario}\thechapter} #1}}{}} % formato del título de capítulo
+
+\fancypagestyle{fancy}{	
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0.5pt}
+	\renewcommand{\footrulewidth}{0pt}
+	\fancyhead[RO]{\bfseries\fontsize{11pt}{13pt}\selectfont \newtitle}
+	\fancyhead[LE]{\fontsize{11pt}{13pt}\selectfont \leftmark}
+	\fancyhead[RE,LO]{\color{colorprimario}\bfseries\thepage}
+}
+
+\fancypagestyle{plain}{%
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0pt}
+%	\renewcommand{\footrulewidth}{0pt}
+	\fancyfoot[C]{\color{colorprimario}\bfseries\thepage}
+}
+
+
+% ----------------------------------------------------------------------
+% Títulos de capítulo y secciones
+% ----------------------------------------------------------------------
+\usepackage{titlesec}
+
+
+% titulos de secciones
+\titleformat{\section}
+{\normalfont\Large\bfseries}
+{\color{colorprimario}\thesection}
+{0.5em}
+{\hyphenpenalty=10000\exhyphenpenalty=10000\relax}
+
+\titleformat{\subsection}
+{\normalfont\large\bfseries}
+{\color{colorprimario}\thesection.\arabic{subsection}}
+{0.5em}
+{\hyphenpenalty=10000\exhyphenpenalty=10000\relax}
+
+
+% títulos de capítulo
+\makeatletter
+
+%
+%% Comandos de Formato
+%
+
+\newcommand*{\chaptertitlesize}{25pt} % definición del tamaño de letra en los títulos
+\newcommand*{\chapternumsize}{90pt} % definición del tamaño de fuenta del número de capítulo
+
+\newcommand{\chaptersubsep}{10mm}
+
+% TRABAJO INTERNO ------------------------------------------------------
+\newlength{\chaptertitlesizeInternal}
+\setlength{\chaptertitlesizeInternal}{\chaptertitlesize}
+
+\newlength{\chapternumsizeInternal}
+\setlength{\chapternumsizeInternal}{\chapternumsize}
+
+\newlength{\chaptersubsepInternal}
+\setlength{\chaptersubsepInternal}{\chaptersubsep}
+
+\renewcommand{\tabularxcolumn}[1]{b{#1}}
+
+\renewcommand{\@makechapterhead}[1]{%
+	\setlength{\chaptertitlesizeInternal}{\chaptertitlesize}
+	\setlength{\chapternumsizeInternal}{\chapternumsize}
+	\setlength{\chaptersubsepInternal}{\chaptersubsep}
+	\renewcommand{\arrayrulewidth}{1.5pt}
+	\noindent
+	\begin{tabularx}{\textwidth}{ l @{\vline \phantom{M}} X}
+%		\llap{\raisebox{1ex}{\rule{25cm}{\arrayrulewidth}}\hspace{-0pt-\widthof{\fontsize{90}{90}\chapnumfont\selectfont\thechapter}}\hspace{-3mm}} & \\ % línea superior en el número
+		{\fontsize{\chapternumsize}{\chapternumsize}\chapnumfont\selectfont \color{colorprimario} \thechapter}
+		 \vphantom{{\fontsize{1.3\chapternumsizeInternal}{1.3\chapternumsizeInternal}\selectfont \thechapter}} 
+		 & \textbf{\scshape\fontsize{\chaptertitlesize}{\chaptertitlesize}\selectfont #1} \\
+		\llap{\raisebox{1ex}{\rule{20cm}{\arrayrulewidth}}\hspace{-\textwidth}} & \\ &
+	\end{tabularx}
+	\vspace{\chaptersubsepInternal}
+	\renewcommand{\arrayrulewidth}{1pt}
+}
+
+% título sin numerar
+\renewcommand{\@makeschapterhead}[1]{%
+	\setlength{\chaptertitlesizeInternal}{\chaptertitlesize}
+	\setlength{\chapternumsizeInternal}{\chapternumsize}
+	\setlength{\chaptersubsepInternal}{\chaptersubsep}
+	\renewcommand{\arrayrulewidth}{1.5pt}
+	\par\noindent
+	\begin{tabularx}{\textwidth}{ l @{\vline \phantom{M}} X}
+	%	{\fontsize{90}{90}\selectfont \color{colorprimario} \thechapter} 
+	%\llap{\raisebox{1ex}{\rule{25cm}{\arrayrulewidth}}\hspace{-3mm}} & \\
+		 \vphantom{{\fontsize{\dimexpr 25pt+\chaptertitlesizeInternal\relax}{\dimexpr 25pt+\chaptertitlesizeInternal\relax}\selectfont M}}
+		  & \textbf{\scshape\fontsize{\chaptertitlesizeInternal}{\chaptertitlesizeInternal}\selectfont #1} \\
+		\llap{\raisebox{1ex}{\rule{20cm}{\arrayrulewidth}}\hspace{-\textwidth}} &\\ &
+	\end{tabularx}
+	\vspace{\chaptersubsepInternal}
+	\renewcommand{\arrayrulewidth}{1pt}
+}
+\makeatother
+
+
+%\titlespacing*{\chapter}{0pt}{-1.5cm}{2cm}
+\titlespacing*{\section}{0pt}{0.25cm}{0.25cm}
+
+
+
+% ----------------------------------------------------------------------
+% Notas al pie coloreadas
+% ----------------------------------------------------------------------
+\renewcommand{\thefootnote}{\textcolor{colorprimario}{\bfseries\arabic{footnote}}}
+
+
+% ----------------------------------------------------------------------
+% Enlaces coloreados y en negrita
+% ----------------------------------------------------------------------
+\usepackage[colorlinks=true, linkcolor=colorprimario, citecolor=colorprimario,
+urlcolor=colorprimario, filecolor=colorprimario,backref=page]{hyperref}
+\let\oldhref\href
+\renewcommand{\href}[2]{\oldhref{#1}{\textbf{#2}}}
+
+
+
+% ----------------------------------------------------------------------
+% Figuras y tablas
+% ----------------------------------------------------------------------
+\DeclareCaptionLabelFormat{coloreado}{\textcolor{colorprimario}{\textbf{#1~#2}}}
+\captionsetup{
+	labelformat=coloreado, 
+	labelsep=colon}
+
+
+
+% ----------------------------------------------------------------------
+% Ecuaciones: numerar solo las que están referenciadas + número coloreado
+% ----------------------------------------------------------------------
+% \usepackage{mathtools}
+
+
+% IMPORTANTE: el tagform coloreado se define ANTES de activar
+% showonlyrefs. mathtools guarda una copia de \tagform@ en el momento
+% de activar showonlyrefs y la envuelve con su lógica de "solo
+% mostrar si está referenciada"; si se redefine \tagform@ DESPUÉS, se
+% destruye esa lógica en vez de envolverla (y el número sale mal).
+\makeatletter
+\renewcommand{\tagform@}[1]{\maketag@@@{\color{colorprimario}\bfseries(#1)}}
+\makeatother
+
+
+
+% ----------------------------------------------------------------------
+% Bibliografía
+% ----------------------------------------------------------------------
+% Cambia el separador cuando solo hay dos páginas (ej: 1 y 2)
+\renewcommand*{\backreftwosep}{ y }
+
+% Cambia el separador final cuando hay tres o más páginas (ej: 1, 2 y 3)
+\renewcommand*{\backreflastsep}{ y }
+
+% Desactiva el formato por defecto
+\renewcommand*{\backref}[1]{}
+
+% Define el nuevo formato
+%\renewcommand*{\backrefalt}[4]{%
+%	\ifcase #1 %
+%	% Caso 0: No se ha citado en el texto (puedes dejarlo vacío)
+%	\or
+%	% Caso 1: Citado en exactamente una página
+%	\\ \footnotesize \raggedleft  \textit{#2.}%
+%	\else
+%	% Caso 2: Citado en múltiples páginas
+%	\par \hfill \footnotesize  \texttt{pp. #2.}%
+%%	\begin{flushright}
+%%		\footnotesize {\textit{Citado en las páginas #2.}}%
+%%	\end{flushright} 
+%	\fi
+%}
+
+% -----
+% Titulo: backreferences a las páginas donde las referencias bibliográficas aparecen. 
+% Formato:  recuadro grisáceo con las páginas en `colorprimario`
+% -----
+\makeatletter
+\renewcommand*{\backrefalt}[4]{%
+	\ifnum#1=0\else
+	\nobreak\hfill\break
+	\vspace{-25pt}%
+	\begin{flushright}
+		\def\@lastpage{}%
+		\@for\@page:=#2\do{%
+			\ifx\@page\@lastpage\else
+			\begingroup
+			\hypersetup{linkcolor=colorprimario}%
+			\setlength{\fboxsep}{2pt}%
+			\colorlet{backrefbg}{gray!15}
+			\colorlet{backrefborder}{gray!55}
+			\fcolorbox{backrefborder}{backrefbg}
+			{\footnotesize\bfseries\@page}%
+			\endgroup
+			\hspace{3pt}%
+			\let\@lastpage\@page
+			\fi
+		}%
+	\end{flushright}%
+	\fi
+}
+\makeatother
+
+
+% cuadro al rededor de las referencias bibliográficas
+%\newcommand{\boxcite}[1]{%
+%	\begingroup
+%	\setlength{\fboxsep}{2.5pt}%
+%	\setlength{\fboxrule}{0.8pt}%
+%	\fcolorbox{black!20}{white}{%
+%		\textcolor{black}{\footnotesize\bfseries#1}%
+%	}%
+%	\endgroup
+%}
+%
+%\makeatletter
+%\renewcommand{\@cite}[2]{%
+%	\boxcite{[#1\if@tempswa , #2\fi]}%
+%}
+%\makeatother
+
+\emergencystretch=5em
+
+
+
+
+% ----------------------------------------------------------------------
+% Entornos: Definición, Teorema, Proposición, Lema
+% ----------------------------------------------------------------------
+
+
+% Regla vertical izquierda reutilizable (definiciones/teoremas/.../demos)
+\renewenvironment{leftbar}{%
+	\def\FrameCommand{{\color{black}\vrule width 0.5pt}\hspace{3mm}}%
+	\vspace{-9mm}
+	\MakeFramed{\advance\hsize-\width \FrameRestore}%
+	\vphantom{M}
+	\vspace{1mm}\\
+}{\endMakeFramed}
+
+
+
+\newlength{\anchocaja}
+\newcommand{\openEuclidOverlayleft}[2]{%
+	\par\addvspace{1.1em}
+	\renewcommand{\arrayrulewidth}{0.5pt}
+	\renewcommand{\arraystretch}{0.5}
+	\setlength{\anchocaja}{\widthof{MM #1 | #2 MM}}
+	\ifdim\anchocaja>\textwidth
+	\setlength{\anchocaja}{\textwidth}
+	\fi
+	\setbox0=\hbox{%
+		\begin{tabularx}{\anchocaja}{r|X}
+			\vphantom{\Large M}~ \color{colorprimario}\bfseries #1 & #2 \\[0ex]
+			\hline
+			&
+		\end{tabularx}%
+	}%
+	\Needspace{\dimexpr\ht0+\dp0+3\baselineskip\relax}
+	\hspace{-2em}\box0
+	\par\nobreak
+%	\vskip -9mm\nobreak
+	\begin{leftbar}
+	}
+	\newcommand{\closeEuclidOverlayleft}{%
+	\end{leftbar}
+	\renewcommand{\arraystretch}{1}
+	\addvspace{1.1em}
+}
+
+
+
+% para las notas
+
+\newlength{\anchocajanota}
+\newcommand{\openEuclidOverlayright}[2]{%
+	\par\addvspace{1.1em}
+	\renewcommand{\arrayrulewidth}{0.5pt}
+	\renewcommand{\arraystretch}{0.5}
+	\setlength{\anchocajanota}{\textwidth}
+%	\hspace{-2em}
+	\setbox0=\hbox{
+		\begin{tabularx}{\anchocajanota}{X|l}
+			\flushright \color{colorprimario}\bfseries #1 & #2 \\[0ex]
+			\hline
+			&
+		\end{tabularx}
+	}
+	\Needspace{\dimexpr\ht0+\dp0+2\baselineskip\relax}
+	\hspace{-2.2em}\box0
+	\par\nobreak
+%	\nobreak\hfill
+	\begin{leftbar}
+	}
+	\newcommand{\closeEuclidOverlayright}{%
+	\end{leftbar}
+	\renewcommand{\arraystretch}{1}
+	\addvspace{1.1em}
+}
+
+
+
+
+% definición de los entornos
+\usepackage{etoolbox} % para \ifstrequal
+
+\newcommand{\newenv}[4]{%
+	% #1 = identificador, #2 = ámbito, #3 = título, #4 = left|right
+	\ifstrequal{#2}{chapter}{%
+		\newcounter{#1}[chapter]%
+		\expandafter\renewcommand\csname the#1\endcsname{\thechapter.\arabic{#1}}%
+	}{%
+		\ifstrequal{#2}{section}{%
+			\newcounter{#1}[section]%
+			\expandafter\renewcommand\csname the#1\endcsname{\thechapter.\arabic{section}.\arabic{#1}}%
+		}{%
+			\ifstrequal{#2}{subsection}{%
+				\newcounter{#1}[subsection]%
+				\expandafter\renewcommand\csname the#1\endcsname{\thechapter.\arabic{section}.\arabic{subsection}.\arabic{#1}}%
+			}{%
+				\newcounter{#1}%
+				\expandafter\renewcommand\csname the#1\endcsname{\arabic{#1}}%
+	}}}%
+	\newenvironment{#1}[1][]{%
+		\refstepcounter{#1}%
+		\csname openEuclidOverlay#4\endcsname{#3~\csname the#1\endcsname}{##1}%
+	}{\csname closeEuclidOverlay#4\endcsname}%
+}
+
+
+
+% ----------------------------------------------------------------------
+% Demostración
+% ----------------------------------------------------------------------
+\renewcommand{\proofname}{Demostración}
+\renewenvironment{proof}[1][\proofname]{%
+	\addvspace{1em}\par
+	\Needspace{3\baselineskip}
+	\pushQED{\qed}%
+	\noindent{\color{colorprimario}\bfseries #1}%
+	\begin{addmargin}{3mm}
+	}{%
+		\popQED
+	\end{addmargin}
+	\addvspace{1em}
+}
+
+
+% ----------------------------------------------------------------------
+% Blóques de código
+% ----------------------------------------------------------------------
+
+%\usepackage{fancyvrb}
+%\fvset{
+%	fontsize=\small,
+%	frame=single,
+%	framesep=3mm,
+%	rulecolor=\color{black},  % color del marco
+%	numbers=left,                      % numeración de líneas
+%	numbersep=5pt,
+%	formatcom=\color{black},           % color del texto en sí
+%}
+
+\usepackage{listings}
+
+\lstdefinestyle{miR}{
+	language=R,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{colorprimario}\bfseries,   
+	commentstyle=\color{gray}\itshape,  % # comentarios
+	stringstyle=\color{blue}, % "cadenas"
+	numbers=left, numbersep=6pt, numberstyle=\tiny\color{gray},
+	showstringspaces=false, breaklines=true, xleftmargin=-1.2em,
+}
+
+
+%\usepackage{tcolorbox}
+%\tcbuselibrary{listings, breakable}
+%
+%\newtcblisting{codigo}{
+%	breakable,
+%	colback=white, 
+%	colframe=black,
+%	boxrule=0.6pt, 
+%	listing only,
+%	listing options={style=miR, basicstyle=\ttfamily\small, breaklines=true},
+%%	left=3mm, right=3mm, top=1mm, bottom=1mm,
+%}
+
+
+\usepackage{tikz}
+\usepackage[many]{tcolorbox}
+\tcbuselibrary{listings,skins, breakable}
+
+% Definimos el nuevo entorno para la caja
+\newtcblisting{codigo}{%
+	breakable,
+	enhanced,
+	frame hidden,       % Ocultamos el marco normal
+	colback=white,      % Color de fondo de la caja
+	top=1mm, bottom=1mm, left=4mm, right=4mm, % Márgenes internos
+	listing only,
+	listing options={style=miR, basicstyle=\ttfamily\small, breaklines=true},
+	overlay={
+		\def\ext{2mm}     % Define cuántos milímetros sobresalen las líneas
+		
+		% Línea superior
+		\draw[thick, black] ([xshift=-\ext]frame.north west) -- ([xshift=\ext]frame.north east);
+		% Línea inferior
+		\draw[thick, black] ([xshift=-\ext]frame.south west) -- ([xshift=\ext]frame.south east);
+		% Línea izquierda
+		\draw[thick, black] ([yshift=\ext]frame.north west) -- ([yshift=-\ext]frame.south west);
+		% Línea derecha
+		\draw[thick, black] ([yshift=\ext]frame.north east) -- ([yshift=-\ext]frame.south east);
+	},
+}
+
+
+
+% ----------------------------------------------------------------------
+% glosario
+% ----------------------------------------------------------------------
+\usepackage[toc]{glossaries}
+\setglossarystyle{listhypergroup}
+
+
+
+
+
